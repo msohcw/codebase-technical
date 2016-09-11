@@ -53,8 +53,8 @@ class EstimatesController < ApplicationController
     }.to_json
 
     auth = {
-      'username' => 'gAAAAABX1Oa6jdhvZj2sZJBZzfx7UYSgTXO_EWsy57TyvkTEU0VkZDt1a4jg2PxPJzzP6UCYUeaqT5bDGuXQ9l3FhwPCRhHbuG0lXH4NPVrv1f6QI45bVOaTFJsPth2PY1KhzHCbthYWnvPuoyjz    PQyIMXgUoiL3wjrEl1ciLk11C4uIFeOvMcM=',
-      'password' => ENV['CLIENT_SECRET_KEY']
+      'username' => ENV['LYFT_CLIENT_ID'],
+      'password' => ENV['LYFT_CLIENT_SECRET']
     }
     response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :body => body, :headers => headers, :basic_auth => auth)
     Rails.logger.debug(response)

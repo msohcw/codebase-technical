@@ -13,7 +13,7 @@ class EstimatesController < ApplicationController
     }
 
     headers = { 'Authorization' => 'Token ' + ENV['UBER_SERVER_TOKEN'] }
-    response = HTTParty.get(uber_base_url + 'estimates/price/', :query => query, :headers => headers)
+    response = HTTParty.get(uber_base_url + 'estimates/price', :query => query, :headers => headers)
     return response 
   end
   

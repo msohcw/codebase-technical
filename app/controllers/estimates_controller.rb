@@ -47,16 +47,16 @@ class EstimatesController < ApplicationController
 
   def get_lyft_access_token
     headers = {'Content-Type' => 'application/json' }
-    query = {
+    body = {
       'grant_type' => 'client_credentials', 
       'scope' => 'public'
-    }
+    }.to_json
 
     auth = {
       'username' => 'gAAAAABX1Oa6jdhvZj2sZJBZzfx7UYSgTXO_EWsy57TyvkTEU0VkZDt1a4jg2PxPJzzP6UCYUeaqT5bDGuXQ9l3FhwPCRhHbuG0lXH4NPVrv1f6QI45bVOaTFJsPth2PY1KhzHCbthYWnvPuoyjz    PQyIMXgUoiL3wjrEl1ciLk11C4uIFeOvMcM=',
       'password' => ENV['CLIENT_SECRET_KEY']
     }
-    response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :query => query, :headers => headers, :basic_auth => auth)
+    response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :body => body, :headers => headers, :basic_auth => auth)
     Rails.logger.debug(response)
     @lyft_access_token = response['access_token']
   end

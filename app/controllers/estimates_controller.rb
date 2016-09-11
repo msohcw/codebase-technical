@@ -1,7 +1,7 @@
 class EstimatesController < ApplicationController 
   
-  UBER_BASE_URL = 'https://api.uber.com/v1/'
-  LYFT_BASE_URL = 'https://api.lyft.com/v1/'
+  UBER_BASE_URL = 'https://api.uber.com'
+  LYFT_BASE_URL = 'https://api.lyft.com'
 
   @lyft_access_token = nil
 
@@ -22,7 +22,7 @@ class EstimatesController < ApplicationController
     }
 
     headers = { 'Authorization' => 'Token ' + ENV['UBER_SERVER_TOKEN'] }
-    response = HTTParty.get(UBER_BASE_URL + 'estimates/price', :query => query, :headers => headers)
+    response = HTTParty.get(UBER_BASE_URL + '/v1/estimates/price', :query => query, :headers => headers)
     return response 
   end
   

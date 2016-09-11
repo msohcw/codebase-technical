@@ -1,6 +1,6 @@
 class EstimatesController < ApplicationController 
   def show
-    render :json => uber_time(params[:start_lat], params[:start_lng], params[:end_lat], params[:end_lng])
+    render :json => uber(params[:start_lat], params[:start_lng], params[:end_lat], params[:end_lng])
   end
 
   def uber(start_lat, start_lng, end_lat, end_lng)

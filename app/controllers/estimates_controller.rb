@@ -52,7 +52,8 @@ class EstimatesController < ApplicationController
       'scope' => 'public'
     }
 
-    Rails.logger.debug(ENV)
+    Rails.logger.debug(ENV['LYFT_CLIENT_ID'])
+    Rails.logger.debug(ENV['LYFT_CLIENT_SECRET'])
 
     auth = {
       'username' => ENV['LYFT_CLIENT_ID'],

@@ -27,7 +27,7 @@ class EstimatesController < ApplicationController
   end
   
   def lyft(start_lat, start_lng, end_lat, end_lng)
-    get_lyft_access_token() if @lyft_access_token == nil
+    get_lyft_access_token() if @lyft_access_token.nil?
     
     headers = { 'Authorization' => 'bearer ' + @lyft_access_token }
     query = {
@@ -51,6 +51,9 @@ class EstimatesController < ApplicationController
       'grant_type' => 'client_credentials', 
       'scope' => 'public'
     }
+
+    Rails.logger.debug(ENV)
+
     auth = {
       'username' => ENV['LYFT_CLIENT_ID'],
       'password' => ENV['LYFT_CLIENT_SECRET']

@@ -60,6 +60,7 @@ class EstimatesController < ApplicationController
       'password' => 'gAAAAABX1Oa6jdhvZj2sZJBZzfx7UYSgTXO_EWsy57TyvkTEU0VkZDt1a4jg2PxPJzzP6UCYUeaqT5bDGuXQ9l3FhwPCRhHbuG0lXH4NPVrv1f6QI45bVOaTFJsPth2PY1KhzHCbthYWnvPuoyjzPQyIMXgUoiL3wjrEl1ciLk11C4uIFeOvMcM='
     }
     response = HTTParty.post(LYFT_BASE_URL + 'oauth/token', :query => query, :headers => headers, :basic_auth => auth)
+    Rails.logger.debug(response)
     @lyft_access_token = response['access_token']
   end
 end

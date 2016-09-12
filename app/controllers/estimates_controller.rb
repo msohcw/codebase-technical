@@ -40,7 +40,7 @@ class EstimatesController < ApplicationController
     
     if response.code == 200
       return response 
-    elsif repsonse.code == 401
+    elsif response.code == 401
       @lyft_access_token = nil
       lyft(start_lat, start_lng, end_lat, end_lng)
     end

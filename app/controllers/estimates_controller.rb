@@ -53,13 +53,16 @@ class EstimatesController < ApplicationController
     }.to_json
 
     auth = {
-      'username' => 'grULxU87bIdg',
-      'password' => '12AKvbTc1ciKPIBeuRWumsQyh-gHwZqh'
+      :username => 'grULxU87bIdg',
+      :password => '12AKvbTc1ciKPIBeuRWumsQyh-gHwZqh'
     }
     
     Rails.logger.debug(auth);
-    
-    response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :body => body, :headers => headers, :basic_auth => auth)
+    Rails.logger.debug(headers);
+    Rails.logger.debug(body);
+    Rails.logger.deubg(LYFT_BASE_URL + '/oauth/token')
+
+    response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :basic_auth => auth, :body => body, :headers => headers)
     
     Rails.logger.debug(response)
     

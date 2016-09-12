@@ -14,7 +14,14 @@ $(document).ready(function(){
     
     if(!startLatLng) startLatLng = geocode(start);
     if(!endLatLng) endLatLng = geocode(end);
-    compare(startLatLng, endLatLng);
+    
+    // Small hack, but avoids callback
+    var check = setInterval(function(){
+      if(startLatLng && endLatLng){
+        clearInterval(check);
+        compare(startLatLng, endLatLng);
+      }
+    },100);
   })
   
 })

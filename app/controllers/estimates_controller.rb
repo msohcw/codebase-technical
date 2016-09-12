@@ -32,9 +32,9 @@ class EstimatesController < ApplicationController
     headers = { 'Authorization' => 'bearer ' + @lyft_access_token }
     query = {
       'start_lat' => start_lat,
-      'start_long' => start_lng,
+      'start_lng' => start_lng,
       'end_lat' => end_lat,
-      'end_long' => end_lng
+      'end_lng' => end_lng
     }
     response = HTTParty.get(LYFT_BASE_URL + '/v1/cost', :query => query, :headers => headers)
     

@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LyftVUber</title>
+    <title>Lyft vs. Uber</title>
     <%= csrf_meta_tags %>
-
+    
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css' %>
   </head>
-
   <body>
+    <h1>Lyft vs Uber</h1>
+    <hr />
+    <form>
+      <h2>Locations</h2>
+      <p>Input a latitude and longitude pair (e.g. 37.900472, -122.308370) or an address e.g. 3150 Pierce St.</p>
+      <div class="row">
+        <div class="five columns">
+      	  <label for="startInput">Start Location</label>
+      	  <input class="u-full-width" placeholder="2650 Durant Avenue" id="startInput" type="text"></input>
+        </div>
+        <div class="five columns">
+      	  <label for="endInput">End Location</label>
+      	  <input class="u-full-width" placeholder="3150 Pierce St" id="endInput" type="text"></input>
+        </div>
+        <button class="button-primary">Go</button>
+      </div>
+    </form>
     <%= yield %>
   </body>
 </html>

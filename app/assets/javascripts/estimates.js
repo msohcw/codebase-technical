@@ -2,6 +2,8 @@ console.log("Loaded");
 
 var _Geocoder;
 
+var startLatLng, endLatLng;
+
 $(document).ready(function(){
   console.log("jQuery loaded");
   
@@ -11,19 +13,17 @@ $(document).ready(function(){
     end = $('#est-end-input').val();
     startLatLng = latLngPair(start);
     endLatLng = latLngPair(end);
-    
-    if(!startLatLng) startLatLng = geocode(start);
-    if(!endLatLng) endLatLng = geocode(end);
-    
+    if(!startLatLng) geocode(start, 'start');
+    if(!endLatLng) geocode(end, 'end');
+
     // Small hack, but avoids callback
     var check = setInterval(function(){
       if(startLatLng && endLatLng){
         clearInterval(check);
         compare(startLatLng, endLatLng);
       }
-    },100);
-  })
-  
+    }, 100);
+  }) 
 })
 
 function initGoogleMaps(){
@@ -47,11 +47,13 @@ function latLngPair(string){
   return latLng;
 }
 
-function geocode(location){
+function geocode(location, name){
   _Geocoder.geocode({'address':location}, function(results, status){
     if(status == 'OK'){
       var latLng = results[0].geometry.location;
-      return {'lat' : latLng.lat(), 'lng' : latLng.lng()};
+      latLng = {'lat' : latLng.lat(), 'lng' : latLng.lng()};
+      if(name == 'start') startLatLng = latLng;
+      if(name == 'end') endLatLng = latLng;
     }else{
       console.log('Geocoding failed. Tried to geocode ' + location +'. Got ' + status + ' ' + results);
       return false;

@@ -5,7 +5,8 @@ var _Geocoder;
 $(document).ready(function(){
   console.log("jQuery loaded");
   
-  $('#est-submit').click(function(){
+  $('#est-submit').click(function(event){
+    event.preventDefault();
     start = $('#est-start-input').val();
     end = $('#est-end-input').val();
     startLatLng = latLngPair(start);
@@ -31,7 +32,7 @@ function latLngPair(string){
 
   var matches = [];
   string.replace(each, function(x){
-    matches.array.push(x);
+    matches.push(x);
     return x;
   })
   

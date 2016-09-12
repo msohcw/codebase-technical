@@ -48,7 +48,6 @@ function geocode(location){
       console.log('Geocoding failed. Tried to geocode ' + location +'. Got ' + status);
       return false;
     }
-  }
   })
 }
 

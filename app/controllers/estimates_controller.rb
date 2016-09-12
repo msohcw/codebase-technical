@@ -60,7 +60,7 @@ class EstimatesController < ApplicationController
     Rails.logger.debug(auth);
     Rails.logger.debug(headers);
     Rails.logger.debug(body);
-    Rails.logger.deubg(LYFT_BASE_URL + '/oauth/token')
+    Rails.logger.debug(LYFT_BASE_URL + '/oauth/token')
 
     response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :basic_auth => auth, :body => body, :headers => headers)
     

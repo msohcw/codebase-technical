@@ -6,6 +6,9 @@ class EstimatesController < ApplicationController
   @lyft_access_token = nil
 
   def show
+  end
+
+  def get
     if(params[:brand] == 'uber')
       render :json => uber(params[:start_lat], params[:start_lng], params[:end_lat], params[:end_lng])
     elsif(params[:brand] == 'lyft')

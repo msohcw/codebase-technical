@@ -46,7 +46,7 @@ function geocode(location){
       var latLng = results[0].geometry.location;
       return {'lat' : latLng.lat(), 'lng' : latLng.lng()};
     }else{
-      console.log('Geocoding failed. Tried to geocode ' + location +'. Got ' + status);
+      console.log('Geocoding failed. Tried to geocode ' + location +'. Got ' + status + ' ' + results);
       return false;
     }
   })

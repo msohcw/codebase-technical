@@ -36,7 +36,8 @@ class EstimatesController < ApplicationController
       'end_lat' => end_lat,
       'end_long' => end_lng
     }
-    response = HTTParty.get(LYFT_BASE_URL + 'cost', :query => query, :headers => headers)
+    response = HTTParty.get(LYFT_BASE_URL + '/v1/cost', :query => query, :headers => headers)
+    
     if response.code == 200
       return response 
     elsif repsonse.code == 401
@@ -53,8 +54,8 @@ class EstimatesController < ApplicationController
     }.to_json
 
     auth = {
-      :username => 'grULxU87bIdg',
-      :password => '12AKvbTc1ciKPIBeuRWumsQyh-gHwZqh'
+      :username => ENV['LYFT_CLIENT_ID'],
+      :password => ENV['LYFT_CLIENT_SECRET']
     }
     
     Rails.logger.debug(auth);

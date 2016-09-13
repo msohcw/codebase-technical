@@ -132,7 +132,7 @@ function compare(startLatLng, endLatLng){
     }
   })
   
-  setTimeOut(function(e){
+  setTimeout(function(e){
     console.log(rideList);
   }, 500);
 }

@@ -81,7 +81,7 @@ function compare(startLatLng, endLatLng){
         if(valid.indexOf(display) == -1) continue; // invalid type
         
         // handle primetime
-        primetime = estimates[i]['primetime_percentage'].splice(0,-1);
+        primetime = estimates[i]['primetime_percentage'].slice(0,-1);
         primetime = Number(primetime)/100 + 1;
         maxCost = estimates[i]['estimated_cost_cents_max'];
         minCost = estimates[i]['estimated_cost_cents_min'];
@@ -120,7 +120,7 @@ function compare(startLatLng, endLatLng){
           'maxCost' : maxCost,
           'minCost' : minCost,
           'averageCost' : (maxCost+minCost)/2,
-          'primesurge' : (surge_multiplier > 1)
+          'primesurge' : (estimates[i]['surge_multiplier'] > 1)
         }
         rideList.push(estimate);
       }

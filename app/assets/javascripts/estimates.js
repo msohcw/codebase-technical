@@ -147,20 +147,20 @@ function compare(startLatLng, endLatLng){
 function displayRides(){
   $('#rides-list-body').empty();
   
-  ridesList.sort(function(a, b){
+  rideList.sort(function(a, b){
     var x = a['averageCost'];
     var y = b['averageCost'];
     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
   });
 
-  for(var i = 0; i < ridesList.length; ++i){
+  for(var i = 0; i < rideList.length; ++i){
     var tableRow = $('<tr></tr>');
     
-    var display = $('<td>'+ridesList[i]['display']+'</td>');
-    var cost = dollarify(ridesList[i]['minCost']) + '-' + dollarify(ridesList[i]['maxCost']);
-    var duration = minutes(ridesList[i]['duration']);
+    var display = $('<td>'+rideList[i]['display']+'</td>');
+    var cost = dollarify(rideList[i]['minCost']) + '-' + dollarify(rideList[i]['maxCost']);
+    var duration = minutes(rideList[i]['duration']);
     duration = $('<td>'+duration+'</td>');
-    var primesurge= (ridesList[i]['primesurge'])?'Yes':'No';
+    var primesurge= (rideList[i]['primesurge'])?'Yes':'No';
     primesurge = $('<td>'+primesurge+'</td>');
 
     tableRow.append(display);

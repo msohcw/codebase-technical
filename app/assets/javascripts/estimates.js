@@ -157,7 +157,7 @@ function displayRides(){
     var tableRow = $('<tr></tr>');
     
     var display = $('<td>'+ridesList[i]['display']+'</td>');
-    var cost = dollarify(ridesList[i]['minCost']) + '-' + dollarify(ridesList[i]['maxCost'];
+    var cost = dollarify(ridesList[i]['minCost']) + '-' + dollarify(ridesList[i]['maxCost']);
     var duration = minutes(ridesList[i]['duration']);
     duration = $('<td>'+duration+'</td>');
     var primesurge= (ridesList[i]['primesurge'])?'Yes':'No';

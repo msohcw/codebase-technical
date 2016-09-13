@@ -1,13 +1,9 @@
-console.log("Loaded");
-
 var _Geocoder;
 
 var startLatLng, endLatLng;
 var rideList = [];
 
 $(document).ready(function(){
-  console.log("jQuery loaded");
-  
   $('#est-submit').click(function(event){
     event.preventDefault();
     start = $('#est-start-input').val();
@@ -78,6 +74,7 @@ function compare(startLatLng, endLatLng){
     'url' : '/estimates/lyft' + query,
     'success' : function(results){
       var estimates = results['cost_estimates'];
+      console.log(estimates);
       for(var i = 0; i < estimates.length; ++i){
         var display = estimates[i]['display_name'];
         if(valid.indexOf(display) == -1) continue; // invalid type
@@ -111,12 +108,10 @@ function compare(startLatLng, endLatLng){
   $.ajax({
     'url' : '/estimates/uber' + query,
     'success' : function(results){
-      console.log(results['prices']);
       var estimates = results['prices'];
       for(var i = 0; i < estimates.length; ++i){
         var display = estimates[i]['display_name'];
         if(valid.indexOf(display) == -1){
-          console.log(display);
           continue; // invalid type
         }
         maxCost = estimates[i]['high_estimate'] * 100;
@@ -157,7 +152,7 @@ function displayRides(){
     var tableRow = $('<tr></tr>');
     
     var display = $('<td>'+rideList[i]['display']+'</td>');
-    var cost = dollarify(rideList[i]['minCost']) + '-' + dollarify(rideList[i]['maxCost']);
+    var cost = dollarify(rideList[i]['minCost']) + ' - ' + dollarify(rideList[i]['maxCost']);
     cost = $('<td>'+cost+'</td>');
     var duration = minutes(rideList[i]['duration']);
     duration = $('<td>'+duration+'</td>');

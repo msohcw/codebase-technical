@@ -59,7 +59,7 @@ function geocode(location, name){
 }
 
 function compare(startLatLng, endLatLng){
-  var valid = ['uberX', 'UberBLACK', 'uberXL', 'UberSUV', 'POOL', 'Lyft', 'Lyft Plus'];
+  var valid = ['uberX', 'UberBLACK', 'uberXL', 'UberSUV', 'POOL', 'Lyft', 'Lyft Plus', 'Lyft Line'];
   var query = '?';
   query += 'start_lat=' + startLatLng['lat'];
   query += '&start_lng=' + startLatLng['lng'];
@@ -84,7 +84,7 @@ function compare(startLatLng, endLatLng){
         primetime = Number(primetime)/100 + 1;
         maxCost = estimates[i]['estimated_cost_cents_max'];
         minCost = estimates[i]['estimated_cost_cents_min'];
-
+        console.log("primetime:" + primetime);
         if(primetime > 1){
           maxCost *= primetime;
           minCost *= primetime;
@@ -123,7 +123,7 @@ function compare(startLatLng, endLatLng){
           'maxCost' : maxCost,
           'minCost' : minCost,
           'averageCost' : (maxCost+minCost)/2,
-          'primesurge' : (estimates[i]['surge_multiplier'] > 1)
+          'primesurge' : (Number(estimates[i]['surge_multiplier']) > 1)
         }
         rideList.push(estimate);
       }

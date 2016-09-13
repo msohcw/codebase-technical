@@ -68,6 +68,8 @@ function compare(startLatLng, endLatLng){
 
   rideList = [];
 
+  $('#rides-list-body').empty();
+  $('#ride-answer').text("Computing results...");
   // lyft
   var lyft_done = false;
   $.ajax({
@@ -139,10 +141,6 @@ function compare(startLatLng, endLatLng){
 }
 
 function displayRides(){
-  $('#rides-list-body').empty();
-  
-  $('#ride-answer').text("Computing results...");
-
   rideList.sort(function(a, b){
     var x = a['averageCost'];
     var y = b['averageCost'];

@@ -62,6 +62,70 @@ function geocode(location, name){
 }
 
 function compare(startLatLng, endLatLng){
-  console.log(startLatLng);
-  console.log(endLatLng);
+  var valid = ['uberX', 'UberBLACK', 'uberXL', 'UberSUV', 'Lyft', 'Lyft Plus'];
+  var query = '?';
+  query += 'start_lat=' + startLatLng['lat'];
+  query += '&start_lng=' + startLatLng['lng'];
+  query += '&end_lat=' + endLatLng['lat'];
+  query += '&end_lng=' + endLatLng['lng'];
+
+  var rideList = [];
+
+  // lyft
+  $.ajax({
+    'url' : '/estimates/lyft' + query,
+    'success' : function(results){
+      var estimates = results['cost_estimates'];
+      for(var i = 0; i < estimates.length; ++i){
+        var display = estimates[i]['display_name'];
+        if(valid.indexOf(display) == -1) continue; // invalid type
+        
+        // handle primetime
+        primetime = estimates[i]['primetime_percentage'].splice(0,-1);
+        primetime = Number(primetime)/100 + 1;
+        maxCost = estimates[i]['estimated_cost_cents_max'];
+        minCost = estimates[i]['estimated_cost_cents_min'];
+
+        if(primetime > 1){
+          maxCost *= primetime;
+          minCost *= primetime;
+        }
+        
+        var estimate = {
+          'display' : display,
+          'duration' : estimates[i]['estimated_duration_seconds'],
+          'maxCost' : maxCost,
+          'minCost' : minCost,
+          'averageCost' : (maxCost+minCost)/2,
+          'primesurge' : (primetime > 1)
+        }
+        rideList.push(estimate);
+      }
+    }
+  })
+  // uber
+  $.ajax({
+    'url' : '/estimates/uber' + query,
+    'success' : function(results){
+      var estimates = results['prices'];
+      for(var i = 0; i < estimates.length; ++i){
+        var display = estimates[i]['display_name'];
+        if(valid.indexOf(display) == -1) continue; // invalid type
+        maxCost = estimates[i]['high_estimate'] * 100;
+        minCost = estimates[i]['low_estimate'] * 100;
+
+        var estimate = {
+          'display' : display,
+          'duration' : estimates[i]['duration'],
+          'maxCost' : maxCost,
+          'minCost' : minCost,
+          'averageCost' : (maxCost+minCost)/2,
+          'primesurge' : (surge_multiplier > 1)
+        }
+        rideList.push(estimate);
+      }
+    }
+  })
+  
+  console.log(rideList);
 }

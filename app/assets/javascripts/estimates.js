@@ -63,7 +63,7 @@ function geocode(location, name){
 }
 
 function compare(startLatLng, endLatLng){
-  var valid = ['uberX', 'UberBLACK', 'uberXL', 'UberSUV', 'Lyft', 'Lyft Plus'];
+  var valid = ['uberX', 'UberBLACK', 'uberXL', 'UberSUV', 'POOL', 'Lyft', 'Lyft Plus'];
   var query = '?';
   query += 'start_lat=' + startLatLng['lat'];
   query += '&start_lng=' + startLatLng['lng'];
@@ -73,6 +73,7 @@ function compare(startLatLng, endLatLng){
   rideList = [];
 
   // lyft
+  var lyft_done = false;
   $.ajax({
     'url' : '/estimates/lyft' + query,
     'success' : function(results){
@@ -102,9 +103,11 @@ function compare(startLatLng, endLatLng){
         }
         rideList.push(estimate);
       }
+      lyft_done = true;
     }
   })
   // uber
+  var uber_done = false;
   $.ajax({
     'url' : '/estimates/uber' + query,
     'success' : function(results){
@@ -129,10 +132,50 @@ function compare(startLatLng, endLatLng){
         }
         rideList.push(estimate);
       }
+      uber_done = true;
     }
   })
+
+  var check = setInterval(function(){
+    if(lyft_done && uber_done){
+      clearInterval(check);
+      displayRides();
+    }
+  }, 100);
+}
+
+function displayRides(){
+  $('#rides-list-body').empty();
   
-  setTimeout(function(e){
-    console.log(rideList);
-  }, 500);
+  ridesList.sort(function(a, b){
+    var x = a['averageCost'];
+    var y = b['averageCost'];
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+  });
+
+  for(var i = 0; i < ridesList.length; ++i){
+    var tableRow = $('<tr></tr>');
+    
+    var display = $('<td>'+ridesList[i]['display']+'</td>');
+    var cost = dollarify(ridesList[i]['minCost']) + '-' + dollarify(ridesList[i]['maxCost'];
+    var duration = minutes(ridesList[i]['duration']);
+    duration = $('<td>'+duration+'</td>');
+    var primesurge= (ridesList[i]['primesurge'])?'Yes':'No';
+    primesurge = $('<td>'+primesurge+'</td>');
+
+    tableRow.append(display);
+    tableRow.append(cost);
+    tableRow.append(duration);
+    tableRow.append(primesurge);
+  }
+}
+
+function minutes(seconds){
+  seconds = Number(seconds);
+  return Math.floor(seconds/60) + ':' + (seconds%60);
+}
+
+function dollarify(cents){
+  cents = Number(cents);
+  return '$' + Math.floor(cents/100) + '.' + (cents%100);
 }

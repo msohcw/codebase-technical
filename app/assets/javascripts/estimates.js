@@ -167,6 +167,7 @@ function displayRides(){
     tableRow.append(cost);
     tableRow.append(duration);
     tableRow.append(primesurge);
+    $('#rides-list-body').append(tableRow);
   }
 }
 

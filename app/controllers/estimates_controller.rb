@@ -61,14 +61,7 @@ class EstimatesController < ApplicationController
       :password => ENV['LYFT_CLIENT_SECRET']
     }
     
-    Rails.logger.debug(auth);
-    Rails.logger.debug(headers);
-    Rails.logger.debug(body);
-    Rails.logger.debug(LYFT_BASE_URL + '/oauth/token')
-
     response = HTTParty.post(LYFT_BASE_URL + '/oauth/token', :basic_auth => auth, :body => body, :headers => headers)
-    
-    Rails.logger.debug(response)
     
     @lyft_access_token = response['access_token']
   end

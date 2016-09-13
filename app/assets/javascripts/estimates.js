@@ -76,7 +76,6 @@ function compare(startLatLng, endLatLng){
     'url' : '/estimates/lyft' + query,
     'success' : function(results){
       var estimates = results['cost_estimates'];
-      console.log(estimates);
       for(var i = 0; i < estimates.length; ++i){
         var display = estimates[i]['display_name'];
         if(valid.indexOf(display) == -1) continue; // invalid type

@@ -107,6 +107,7 @@ function compare(startLatLng, endLatLng){
   $.ajax({
     'url' : '/estimates/uber' + query,
     'success' : function(results){
+      console.log(results['prices']);
       var estimates = results['prices'];
       for(var i = 0; i < estimates.length; ++i){
         var display = estimates[i]['display_name'];

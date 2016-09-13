@@ -3,6 +3,7 @@ console.log("Loaded");
 var _Geocoder;
 
 var startLatLng, endLatLng;
+var rideList = [];
 
 $(document).ready(function(){
   console.log("jQuery loaded");
@@ -69,7 +70,7 @@ function compare(startLatLng, endLatLng){
   query += '&end_lat=' + endLatLng['lat'];
   query += '&end_lng=' + endLatLng['lng'];
 
-  var rideList = [];
+  rideList = [];
 
   // lyft
   $.ajax({
@@ -131,5 +132,7 @@ function compare(startLatLng, endLatLng){
     }
   })
   
-  console.log(rideList);
+  setTimeOut(function(e){
+    console.log(rideList);
+  }, 500);
 }

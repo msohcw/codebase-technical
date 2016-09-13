@@ -179,7 +179,7 @@ function minutes(seconds){
 
 function dollarify(cents){
   cents = Number(cents);
-  return '$' + Math.floor(cents/100) + '.' + leftpad(cents%100,2);
+  return '$' + Math.floor(cents/100) + '.' + leftpad(Math.round(cents%100),2);
 }
 
 function leftpad(number, width){

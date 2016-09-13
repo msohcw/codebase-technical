@@ -110,7 +110,10 @@ function compare(startLatLng, endLatLng){
       var estimates = results['prices'];
       for(var i = 0; i < estimates.length; ++i){
         var display = estimates[i]['display_name'];
-        if(valid.indexOf(display) == -1) continue; // invalid type
+        if(valid.indexOf(display) == -1){
+          console.log(display);
+          continue; // invalid type
+        }
         maxCost = estimates[i]['high_estimate'] * 100;
         minCost = estimates[i]['low_estimate'] * 100;
 

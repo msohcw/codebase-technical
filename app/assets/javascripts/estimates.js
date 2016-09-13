@@ -84,7 +84,6 @@ function compare(startLatLng, endLatLng){
         primetime = Number(primetime)/100 + 1;
         maxCost = estimates[i]['estimated_cost_cents_max'];
         minCost = estimates[i]['estimated_cost_cents_min'];
-        console.log("primetime:" + primetime);
         if(primetime > 1){
           maxCost *= primetime;
           minCost *= primetime;
@@ -142,6 +141,8 @@ function compare(startLatLng, endLatLng){
 function displayRides(){
   $('#rides-list-body').empty();
   
+  $('#ride-answer').text("Computing results...");
+
   rideList.sort(function(a, b){
     var x = a['averageCost'];
     var y = b['averageCost'];
@@ -165,6 +166,10 @@ function displayRides(){
     tableRow.append(primesurge);
     $('#rides-list-body').append(tableRow);
   }
+  
+  var bestRide = rideList[0];
+
+  $('#ride-answer').text(bestRide['display'] + ' is your cheapest option, with a price of ' + dollarify(bestRide['minCost']) + ' - ' + dollarify(bestRide['maxCost']) + '.');
 }
 
 function minutes(seconds){

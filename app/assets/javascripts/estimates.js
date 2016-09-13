@@ -158,6 +158,7 @@ function displayRides(){
     
     var display = $('<td>'+rideList[i]['display']+'</td>');
     var cost = dollarify(rideList[i]['minCost']) + '-' + dollarify(rideList[i]['maxCost']);
+    cost = $('<td>'+cost+'</td>');
     var duration = minutes(rideList[i]['duration']);
     duration = $('<td>'+duration+'</td>');
     var primesurge= (rideList[i]['primesurge'])?'Yes':'No';
@@ -173,10 +174,18 @@ function displayRides(){
 
 function minutes(seconds){
   seconds = Number(seconds);
-  return Math.floor(seconds/60) + ':' + (seconds%60);
+  return Math.floor(seconds/60) + ':' + leftpad(seconds%60,2);
 }
 
 function dollarify(cents){
   cents = Number(cents);
-  return '$' + Math.floor(cents/100) + '.' + (cents%100);
+  return '$' + Math.floor(cents/100) + '.' + leftpad(cents%100,2);
+}
+
+function leftpad(number, width){
+  // huzzah for leftpad independence
+  var zeroesNeeded = width - String(number).length;
+  var ret = '';
+  for(var i = 0; i < zeroesNeeded; ++i) ret += '0';
+  return (ret+number);
 }
